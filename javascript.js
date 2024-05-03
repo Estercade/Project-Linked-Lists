@@ -94,18 +94,29 @@ const LinkedList = function() {
     return str;
   }
 
-  // insertAt(value, index) inserts a new node with the pr
-
-var list = new LinkedList;
-list.append(3);
-list.append(4);
-list.insertAt(5, 2);
-console.log(list.toString());
-list.removeAt(1);
-console.log(list.toString());
-console.log(list.head);
-console.log(list.size);
+  // insertAt(value, index) inserts a new node with the prorivded value at the given index
   // or returns null if the given index is invalid (less than 0 or larger than the current size)
+  const insertAt = (value, index) => {
+    if (index < 0 || index > size + 1) {
+      return null;
+    } else if (index === 0) {
+      prepend(value);
+      return;
+    } else if (index === size) {
+      append(value);
+      return;
+    }
+    let current = head;
+    let previous = current;
+    for (let i = 0; i < index; i++) {
+      previous = current;
+      current = current.nextNode;
+    }
+    previous.nextNode = new Node(value, current);
+    size++;
+  }
+
+  // removeAt(index) that removes the node at the given index
   const removeAt = (index) => {
     if (index < 0 || index > size) {
       return null;
